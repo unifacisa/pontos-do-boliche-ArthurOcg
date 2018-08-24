@@ -6,4 +6,13 @@ import { Injectable } from '@angular/core';
 export class BolicheServiceService {
 
   constructor() { }
+
+
+  LIMITE = 10;
+
+  soma(x:number, y:number): number{
+    return x+y;
+  }
+
+
 }

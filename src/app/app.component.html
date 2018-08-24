@@ -1,23 +1,25 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
   <h1>
-    Welcome to {{ title }}!
+    Bem vindo ao {{ title }}!
   </h1>
 </div>
 
-<div class="col-md-12" > 
-<h2>Jogadas</h2>
+<div class="row" > 
+  <h2 class="col-3">Jogadas</h2>
 
-<form class="form-group">
-  <div>
-    <div class="input-group">
-      <input type="number">
-      <button type="button" class="btn btn-success">Jogar</button>
+  <form class="form-group">
+    <div >
+      <div class="input-group">
+        <input type="number"[(ngModel)]="pontos">
+        <button type="submit" class="btn btn-success">Jogar</button>
+      </div>      
     </div>
-  </div>
-</form>
+  </form>
+  <div>{{pontos}}</div>
+</div>
 
-<div class="table-condensed jumbotron">
+<div class="table table-condensed jumbotron col-lg-12">
   
 
 <table style="width:100%">
@@ -38,5 +40,5 @@
     <td>94</td>
   </tr>
 </table> 
-</div>
+
 </div>

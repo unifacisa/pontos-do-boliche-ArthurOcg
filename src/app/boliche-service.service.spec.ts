@@ -12,4 +12,8 @@ describe('BolicheServiceService', () => {
   it('should be created', inject([BolicheServiceService], (service: BolicheServiceService) => {
     expect(service).toBeTruthy();
   }));
+
+  it('teste de soma', inject([BolicheServiceService], (service: BolicheServiceService) => {
+    expect(service.soma(2,1)).toBe(3);
+  }));
 });
