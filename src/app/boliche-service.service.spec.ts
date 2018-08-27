@@ -33,4 +33,9 @@ describe('BolicheServiceService', () => {
     expect(service.isSpare([2,1,4,6,3],4)).toBeFalsy;
   }));
 
+  it('teste de spare', inject([BolicheServiceService], (service: BolicheServiceService) => {
+    expect(service.calcularPontos([5,5,4],1)).toBe(14);
+  }));
+
+
 });

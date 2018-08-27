@@ -17,11 +17,13 @@ export class AppComponent{
       pontos: 0
   };
   
+  jogadas=[];
 
 
   constructor(private bolicheService: BolicheServiceService) {
  
     this.dados.quadro=this.quadro;
+    this.criarJogadas();
   }
 
 
@@ -39,6 +41,25 @@ export class AppComponent{
     this.dados.pinos = 0;
     this.dados.pontos = this.bolicheService.calcularPontos(this.quadro);
     
+  }
+
+  criarJogadas(array:number[]):void{
+
+    let quadro:number[];
+    for(let i=0; i < array.length ; i=+2){
+      if(array[i+1]){
+        quadro.push(array[i]);
+        quadro.push(array[i+1]);
+        this.jogadas.push(quadro);
+        quadro=[];        
+      }else{
+        quadro.push(array[i]);
+        this.jogadas.push(quadro);
+        quadro=[]; 
+      }
+      
+    }
+
   }
    
 
