@@ -1,4 +1,5 @@
 import { Component} from '@angular/core';
+import { BolicheServiceService } from "src/app/boliche-service.service";
 
 
 @Component({
@@ -9,23 +10,37 @@ import { Component} from '@angular/core';
 export class AppComponent{
   
   title = 'Boliche';
-  quadro = [];
-  pinos = 0;
-  pontos = 0;
+  quadro: Array<number> = new Array<number>();
+  dados = {
+      quadro:[],
+      pinos:0,
+      pontos: 0
+  };
+  
+
+
+  constructor(private bolicheService: BolicheServiceService) {
+ 
+    this.dados.quadro=this.quadro;
+  }
+
+
+  
 
   ngOnInit(): void {
     
   }
 
-  jogar(): void{
+  onSubmit(): void{
 
-    this.quadro.push(this.pinos);
-
+    console.log(this.dados.pinos);
+    this.quadro.push(this.dados.pinos);
+    console.log(this.quadro);
+    this.dados.pinos = 0;
+    this.dados.pontos = this.bolicheService.calcularPontos(this.quadro);
+    
   }
-
-  calcularPontos(){
-
-  }
+   
 
 }
 
