@@ -23,7 +23,7 @@ export class AppComponent{
   constructor(private bolicheService: BolicheServiceService) {
  
     this.dados.quadro=this.quadro;
-    this.criarJogadas();
+    this.criarJogadas([]);
   }
 
 
