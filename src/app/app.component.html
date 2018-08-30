@@ -13,7 +13,7 @@
       <form class="form-group" (ngSubmit)="onSubmit()">
         <div>
           <div class="input-group">
-            <input type="number" [(ngModel)]="dados.pinos" [ngModelOptions]="{standalone: true}">
+            <input type="number" min="0" [(ngModel)]="dados.pinos" [ngModelOptions]="{standalone: true}">
             <button type="submit" class="btn btn-success">Lançar</button>
           </div>
         </div>
@@ -37,10 +37,10 @@
       </thead>
       <tbody >
         <tr *ngFor="let lancamento of quadro; let i = index">
-          <td>{{i+1}}</td>
+          <td scope="row">{{i+1}}</td>
           <td>{{quadro[i]}}</td>
           <td>{{quadro[i+1]}}</td>
-          <td></td>
+          <td>{{descricao}}</td>
         </tr>
       </tbody>
     </table>

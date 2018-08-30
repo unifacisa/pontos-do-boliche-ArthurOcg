@@ -10,20 +10,20 @@ import { BolicheServiceService } from "src/app/boliche-service.service";
 export class AppComponent{
   
   title = 'Boliche';
-  quadro: Array<number> = new Array<number>();
+  quadro: number[];
   dados = {
       quadro:[],
       pinos:0,
       pontos: 0
   };
-  
+  descricao = "";
   jogadas=[];
 
 
   constructor(private bolicheService: BolicheServiceService) {
  
     this.dados.quadro=this.quadro;
-    this.criarJogadas([]);
+    this.criarJogadas(this.quadro);
   }
 
 
@@ -45,23 +45,75 @@ export class AppComponent{
 
   criarJogadas(array:number[]):void{
 
-    let quadro:number[];
-    for(let i=0; i < array.length ; i=+2){
-      if(array[i+1]){
-        quadro.push(array[i]);
-        quadro.push(array[i+1]);
-        this.jogadas.push(quadro);
-        quadro=[];        
+    let quadro = this.criarQuadro();
+    for(let i=0; i < array.length ; i++){
+      if(i < array.length -1){
+        if(this.cheio(quadro)){
+          quadro=this.criarQuadro();
+          quadro.push(array[i]);
+          if(this.isStrike(quadro)){
+            this.jogadas.push(quadro);
+            quadro=this.criarQuadro();
+          }else if(!this.cheio(quadro)){
+            quadro.push(array[i+1]);
+            this.jogadas.push(quadro);
+            if(this.cheio(quadro)){
+              quadro=this.criarQuadro();
+            }
+          }
+        }else {
+          this.jogadas.push();
+          quadro.push(array[i]);
+          if(!this.cheio(quadro)){
+            quadro.push(array[i+1]);
+          }
+        }
+        
       }else{
         quadro.push(array[i]);
         this.jogadas.push(quadro);
         quadro=[]; 
-      }
-      
+      }      
     }
-
   }
-   
+
+  criarQuadro():Array<number>{
+    return  [];
+  }
+  
+  cheio(quadro:number[]):boolean{
+    if(quadro.length===2){
+      return true;
+    }return false;
+  }
+
+  isSpare(quadro:number[]):boolean{
+    if(quadro[0]+quadro[1]===10){
+      return true;
+    }return false;
+  }
+
+  isStrike(quadro:number[]):boolean{
+    if(quadro[0]===10){
+      return true;
+    }return false;
+  }
+
+  getDescricao(quadro:number[]):string{
+    if(this.isStrike(quadro)){
+      return 'Strike';
+    }else if(quadro.length==2){
+      if(this.isSpare(quadro)){
+        return 'Spare';
+      }else{
+        return "Normal";
+      }
+    }    
+    return "";
+  }
+
+
+
 
 }
 
