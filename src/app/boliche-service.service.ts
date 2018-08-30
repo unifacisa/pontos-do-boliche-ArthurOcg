@@ -17,6 +17,7 @@ export class BolicheServiceService {
     for (let index = 0; index < jogadas.length && quadros <= BolicheServiceService.LIMITE; quadros++) {
       result += this.somaPontosQuadro(jogadas,index);
       let proxQuadro = this.getProximoQuadro(jogadas, index);
+
       if (proxQuadro < jogadas.length - 1) {
         if (this.isStrike(jogadas, index)) {
           result += this.somaPontosQuadro(jogadas, proxQuadro);
@@ -24,8 +25,10 @@ export class BolicheServiceService {
           result += jogadas[proxQuadro];
         }
       }
-      index= proxQuadro;
+
+      index = proxQuadro;
     }
+    
     return result;
   }
 

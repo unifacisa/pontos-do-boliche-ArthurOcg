@@ -62,6 +62,16 @@ describe('BolicheServiceService', () => {
   }));
 
   it('teste calcular pontos spare e strike', inject([BolicheServiceService], (service: BolicheServiceService) => {
-    expect(service.calcularPontos([10,5,4])).toBe(19);
+    expect(service.calcularPontos([10,5,4])).toBe(28);
   }));
+
+  it('teste calcular pontos spare e strike', inject([BolicheServiceService], (service: BolicheServiceService) => {
+    expect(service.calcularPontos([10,5,4])).toBe(28);
+  }));
+
+  it('teste calcular pontos spare e strike', inject([BolicheServiceService], (service: BolicheServiceService) => {
+    expect(service.calcularPontos([10,5,4])).toBe(28);
+  }));
+
+
 });
