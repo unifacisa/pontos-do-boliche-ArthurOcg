@@ -14,13 +14,13 @@ export class BolicheServiceService {
     let result = 0;
     let quadros = 0;
 
-    for (let index = 0; index < jogadas.length && quadros <= BolicheServiceService.LIMITE; quadros++) {
+    for (let index = 0; index < jogadas.length && quadros < BolicheServiceService.LIMITE; quadros++) {
       result += this.somaPontosQuadro(jogadas,index);
       let proxQuadro = this.getProximoQuadro(jogadas, index);
 
       if (proxQuadro < jogadas.length - 1) {
         if (this.isStrike(jogadas, index)) {
-          result += this.somaPontosQuadro(jogadas, proxQuadro);
+          result += jogadas[proxQuadro] + jogadas[proxQuadro + 1];
         } else if (this.isSpare(jogadas, index)) {
           result += jogadas[proxQuadro];
         }
