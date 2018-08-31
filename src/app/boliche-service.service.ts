@@ -10,7 +10,7 @@ export class BolicheServiceService {
 
 
 
-  calcularPontos(jogadas: number[]) {
+  calcularPontos(jogadas: number[]): number {
     let result = 0;
     let quadros = 0;
 

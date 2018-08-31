@@ -36,11 +36,11 @@
         </tr>
       </thead>
       <tbody >
-        <tr *ngFor="let lancamento of quadro; let i = index">
+        <tr *ngFor="let lancamento of jogadas; let i = index">
           <td scope="row">{{i+1}}</td>
-          <td>{{quadro[i]}}</td>
-          <td>{{quadro[i+1]}}</td>
-          <td>{{descricao}}</td>
+          <td>{{jogadas[i][0]}}</td>
+          <td>{{jogadas[i][1]}}</td>
+          <td>{{getDescricao(jogadas[i])}}</td>
         </tr>
       </tbody>
     </table>

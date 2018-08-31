@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { BolicheServiceService } from "src/app/boliche-service.service";
 
 
@@ -7,108 +7,99 @@ import { BolicheServiceService } from "src/app/boliche-service.service";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent{
-  
+export class AppComponent {
+
   title = 'Boliche';
-  quadro: number[];
+  quadro: number[] = [];
   dados = {
-      quadro:[],
-      pinos:0,
-      pontos: 0
+    quadro: [],
+    pinos: 0,
+    pontos: 0
   };
   descricao = "";
-  jogadas=[];
+  jogadas = [];
 
 
   constructor(private bolicheService: BolicheServiceService) {
- 
-    this.dados.quadro=this.quadro;
-    this.criarJogadas(this.quadro);
+    this.dados.quadro = this.quadro;
+
   }
 
 
-  
+
 
   ngOnInit(): void {
     
+   
   }
 
-  onSubmit(): void{
+  onSubmit(): void {
 
     console.log(this.dados.pinos);
+    console.log(this.quadro);
     this.quadro.push(this.dados.pinos);
     console.log(this.quadro);
     this.dados.pinos = 0;
     this.dados.pontos = this.bolicheService.calcularPontos(this.quadro);
-    
+    this.criarJogadas(this.quadro);
+    console.log(this.jogadas);
+
   }
 
-  criarJogadas(array:number[]):void{
+  criarJogadas(pontos: number[]): void {
 
     let quadro = this.criarQuadro();
-    for(let i=0; i < array.length ; i++){
-      if(i < array.length -1){
-        if(this.cheio(quadro)){
-          quadro=this.criarQuadro();
-          quadro.push(array[i]);
-          if(this.isStrike(quadro)){
+    for (let i = 0; i <= pontos.length; i+=2) {
+      if (i < pontos.length - 1) {
+        if (!this.cheio(quadro)) {
+          quadro.push(pontos[i]);
+          if(quadro.length === 1 && !this.isStrike(quadro)){
+            quadro.push(pontos[i+1]);
             this.jogadas.push(quadro);
-            quadro=this.criarQuadro();
-          }else if(!this.cheio(quadro)){
-            quadro.push(array[i+1]);
+          }else if (this.isSpare(quadro) || this.isStrike(quadro)) {
             this.jogadas.push(quadro);
-            if(this.cheio(quadro)){
-              quadro=this.criarQuadro();
-            }
-          }
-        }else {
-          this.jogadas.push();
-          quadro.push(array[i]);
-          if(!this.cheio(quadro)){
-            quadro.push(array[i+1]);
-          }
+            quadro = this.criarQuadro();
+          }          
+        } else {
+          quadro = this.criarQuadro();
+          quadro.push(pontos[i]);
         }
-        
-      }else{
-        quadro.push(array[i]);
-        this.jogadas.push(quadro);
-        quadro=[]; 
-      }      
+      }
     }
   }
 
-  criarQuadro():Array<number>{
-    return  [];
-  }
-  
-  cheio(quadro:number[]):boolean{
-    if(quadro.length===2){
-      return true;
-    }return false;
+  criarQuadro(): Array<number> {
+    return new Array<number>();
   }
 
-  isSpare(quadro:number[]):boolean{
-    if(quadro[0]+quadro[1]===10){
+  cheio(quadro: number[]): boolean {
+    if (quadro.length === 2) {
       return true;
-    }return false;
+    } return false;
   }
 
-  isStrike(quadro:number[]):boolean{
-    if(quadro[0]===10){
+  isSpare(quadro: number[]): boolean {
+    if (quadro[0] + quadro[1] === 10) {
       return true;
-    }return false;
+    } return false;
   }
 
-  getDescricao(quadro:number[]):string{
-    if(this.isStrike(quadro)){
+  isStrike(quadro: number[]): boolean {
+    if (quadro[0] === 10) {
+      return true;
+    } return false;
+  }
+
+  getDescricao(quadro: number[]): string {
+    if (this.isStrike(quadro)) {
       return 'Strike';
-    }else if(quadro.length==2){
-      if(this.isSpare(quadro)){
+    } else if (quadro.length == 2) {
+      if (this.isSpare(quadro)) {
         return 'Spare';
-      }else{
+      } else {
         return "Normal";
       }
-    }    
+    }
     return "";
   }
 
