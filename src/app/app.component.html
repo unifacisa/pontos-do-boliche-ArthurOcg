@@ -6,26 +6,26 @@
 </div>
 <div class="container-fluid">
   <div class="row text-center">
-    <div class="col-lg-4">
+    <div class="col-xs-4 col-lg-4">
       <h2>Jogadas</h2>
     </div>
-    <div class="col-lg-4">
+    <div class="col-xs-8 col-lg-4">
       <form class="form-group" (ngSubmit)="onSubmit()">
         <div>
           <div class="input-group">
-            <input type="number" min="0" [(ngModel)]="dados.pinos" [ngModelOptions]="{standalone: true}">
+            <input type="number" min="0" max="10" [(ngModel)]="dados.pinos" [ngModelOptions]="{standalone: true}">
             <button type="submit" class="btn btn-success">Lançar</button>
           </div>
         </div>
       </form>
     </div>
-    <div class="col-lg-4">
+    <div class="col-xs-12 col-lg-4">
       <h2>Pontos: {{dados.pontos}}</h2>
     </div>
 
   </div>
 
-  <div class="table table-striped jumbotron col-lg-12">
+  <div class="table table-bordered jumbotron col-xs-12 col-lg-12">
     <table style="width:100%">
       <thead>
         <tr>
@@ -37,7 +37,7 @@
       </thead>
       <tbody >
         <tr *ngFor="let quadro of jogadas; let i = index">
-          <td scope="row">{{i+1}}</td>
+          <td>{{i+1}}</td>
           <td>{{jogadas[i][0]}}</td>
           <td>{{jogadas[i][1]}}</td>
           <td>{{getDescricao(jogadas[i])}}</td>
