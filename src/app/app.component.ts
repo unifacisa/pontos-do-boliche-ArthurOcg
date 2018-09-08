@@ -19,6 +19,7 @@ export class AppComponent {
   descricao = '';
   jogadas = [];
   lista = this.criarQuadro();
+  maior = 0;
 
 
   constructor(private bolicheService: BolicheServiceService) {
@@ -30,6 +31,9 @@ export class AppComponent {
 
 
   ngOnInit(): void {
+    if(localStorage.getItem('Record')) {
+      this.maior = parseInt(localStorage.getItem('Record'));
+    } 
   }
 
   onSubmit(): void {
@@ -60,6 +64,7 @@ export class AppComponent {
     this.dados.pinos = 0;
     this.dados.pontos = this.bolicheService.calcularPontos(this.quadro);
     console.log(this.jogadas);
+    this.calculaMaior();
 
   }
 
@@ -88,7 +93,7 @@ export class AppComponent {
   getDescricao(quadro: number[]): string {
     if (this.isStrike(quadro)) {
       return 'Strike';
-    } else if (quadro.length == 2) {
+    } else if (quadro.length === 2) {
       if (this.isSpare(quadro)) {
         return 'Spare';
       } else {
@@ -98,8 +103,9 @@ export class AppComponent {
     return '';
   }
 
-
-
-
+  calculaMaior() {
+     this.maior = (this.dados.pontos > this.maior) ? this.dados.pontos : this.maior;
+     localStorage.setItem('Record', this.maior + '');
+  }
 }
 
